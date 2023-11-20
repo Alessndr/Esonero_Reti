@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
 	socketAddress serverAddress;
 	memset(&serverAddress, 0, sizeof(serverAddress)); // ensures that extra bytes contain 0 sad.sin_family = AF_INET;
 	serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
+	serverAddress.sin_family = AF_INET;
 	serverAddress.sin_port = htons(PROTO_PORT); /* converts values between the host and network byte order. Specifically, htons() converts 16-bit quantities from host byte order to network byte order. */
 
 	//binding welcomeSocket
