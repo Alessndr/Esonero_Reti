@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
 	//set connection settings
 
 	socketAddress serverAddress;
-	memset(&serverAddress, 0, sizeof(serverAddress)); // ensures that extra bytes contain 0 sad.sin_family = AF_INET;
+	memset(&serverAddress, 0, sizeof(serverAddress));
 	serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
 	serverAddress.sin_family = AF_INET;
-	serverAddress.sin_port = htons(PROTO_PORT); /* converts values between the host and network byte order. Specifically, htons() converts 16-bit quantities from host byte order to network byte order. */
+	serverAddress.sin_port = htons(PROTO_PORT);
 
 	//binding welcomeSocket
 	if (bind(welcomeSocket, (genericSocketAddress) &serverAddress, sizeof(serverAddress)) < 0){
@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
 			}
 
 			/*
-			 * Checking whether the Client wants to disconnect.
+			 * Checking if the Client wants to disconnect.
 			 * If so, the Server will close the client socket,
 			 * continue listening, and wait for a new connection.
 			 */

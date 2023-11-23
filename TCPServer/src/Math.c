@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <ctype.h>
 
 bool parseStringOperation(const char* string, Integers* integers) {
 	char copy[SIZE];
@@ -10,33 +11,43 @@ bool parseStringOperation(const char* string, Integers* integers) {
 
 	// Parsing process
 	char* token = strtok(copy, " ");
-	if (token == NULL) {
+	if (token == NULL)
 		return false; // ParsingException: token not found
-	}
-	if(token[0] != '+' && token[0] != '-' && token[0] != '/' && token[0] != 'x')
-		return false;
+
+	if (token[0] != '+' && token[0] != '-' && token[0] != '/' && token[0] != 'x')
+		return false; // ParsingException: Invalid operator
+
 
 	integers->operation = token[0];
 
 	token = strtok(NULL, " ");
-	if (token == NULL) {
+	if (token == NULL)
 		return false; // ParsingException: integers missing
-	}
+
+
+	if (!isdigit(token[0]))
+		return false; // ParsingException: Invalid integer format
+
 	integers->x = atoi(token);
 
 	token = strtok(NULL, " ");
-	if (token == NULL) {
-		return false; // ParsingException: integer missing
-	}
+	if (token == NULL)
+		return false; // ParsingException: integers missing
+
+
+	if (!isdigit(token[0]))
+		return false; // ParsingException: Invalid integer format
+
 	integers->y = atoi(token);
 
 	token = strtok(NULL, " ");
-	if (token != NULL) {
+	if (token != NULL)
 		return false; // ParsingException: Too many tokens
-	}
+
 
 	return true; // Parsing: success
 }
+
 
 
 void add(Integers_h integers){
